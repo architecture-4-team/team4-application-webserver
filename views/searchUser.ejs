@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ./layout/header.ejs %>
+        <script type="text/javascript" src="/js/searchUser.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <div class="dashboardBody">
+                <!-- columnWrap -->
+                <div>
+                    <br>
+                </div>
+
+                <div class="columnWrap">
+                    <div class="column">
+                        <!-- columnHeader -->
+                        <div class="columnHeader">
+                            <div class="title">
+
+                            </div>
+                        </div>
+                        <!-- columnBody -->
+                        <div class="columnBody">
+                            <!-- tableWrap -->
+                            <div class="dashboardTable columnTable">
+                                <!-- tableBody -->
+                                <div id="searchUserListDiv" class="tableWrap tableBody noData" data-nodata="No searched User">
+                                    <table style="display:none;">
+                                        <tbody id="searchUserList">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <br>
+                    </div>
+
+                    <div class="">
+                        <!-- form -->
+                        <dl>
+                            <dd class="inputBox">
+                                <input type="text" id="searchIinfo" maxlength="30" placeholder="Enter the user nickname (Option)">
+                            </dd>
+                        </dl>
+                        <br />
+                        <!-- buttonWrap -->
+                        <div class="buttonWrap">
+                            <button id="AddFavoriteUser" type="button" class="button dark fw">
+                                Add as Favorite User
+                            </button>
+                            <div>
+                                <br>
+                            </div>
+                            <button id="cancel" type="button" class="button dark fw">
+                                CANCEL
+                            </button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

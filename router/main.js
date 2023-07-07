@@ -47,4 +47,11 @@ module.exports = function (app, fs) {
             length: 5
         })
     });
+
+    app.get('/searchUser', function (req, res) {
+        res.render('searchUser', {
+            title: "Search User",
+            length: 5
+        })
+    });
 }
