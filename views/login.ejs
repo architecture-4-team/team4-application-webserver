@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ./layout/header.ejs %>
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- container -->
+        <div class="container loginWrap">
+            <div class="loginBox">
+                <!-- form -->
+                <dl>
+                    <dt class="transparent">
+                        Email
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="text" id="email" maxlength="30" placeholder="email">
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="transparent">
+                        Password
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="password" id="pw" maxlength="20" placeholder="password">
+                    </dd>
+                </dl>
+                <p class="required">
+                    <span id="failMsg" style="display:none;">
+
+                    </span>
+                </p>
+
+                <!-- buttonWrap -->
+                <div class="buttonWrap">
+                    <button id="login" type="button" class="button dark fw">
+                        LOGIN
+                    </button>
+                </div>
+
+                <a id="forgot" href="#">
+                    Forgot your Password?
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

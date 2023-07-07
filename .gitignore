@@ -1,0 +1,9 @@
+# node.js
+node_modules
+
+# yarn, npm
+*.lock
+package-lock.json
+
+# history
+.history

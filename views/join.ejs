@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ./layout/header.ejs %>
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- container -->
+        <div class="container loginWrap">
+            <div class="loginBox">
+                <!-- form -->
+                <dl>
+                    <dt class="transparent">
+                        E-mail
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="email" id="email" maxlength="30" placeholder="E-mail">
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="transparent">
+                        Name
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="text" id="name_first" maxlength="30" placeholder="First Name">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="text" id="name_last" maxlength="30" placeholder="Last Name">
+                    </dd>
+                </dl>
+                <dl>
+                    <dt class="transparent">
+                        Password
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="password" id="pw_current" maxlength="30" placeholder="Current Password">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="password" id="pw_new" maxlength="30" placeholder="New Password">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="password" id="pw_check" maxlength="30" placeholder="Check New Password">
+                    </dd>
+                </dl>
+                <p class="required">
+                    <span id="failMsg" style="display:none;">
+
+                    </span>
+                </p>
+                <dl>
+                    <dt class="">
+                        My Password Question
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="text" id="question1" maxlength="30" placeholder="My Password Question 1">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="text" id="answer1" maxlength="30" placeholder="My Password Question 1 - Answer">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="text" id="question2" maxlength="30" placeholder="My Password Question 2">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="text" id="answer2" maxlength="30" placeholder="My Password Question 2 - Answer">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="text" id="question3" maxlength="30" placeholder="My Password Question 3">
+                    </dd>
+                    <dd class="inputBox">
+                        <input type="text" id="answer3" maxlength="30" placeholder="My Password Question 3 - Answer">
+                    </dd>
+                </dl>
+
+                <!-- buttonWrap -->
+                <div class="buttonWrap">
+                    <button id="change" type="button" class="button dark fw">
+                        JOIN
+                    </button>
+                </div>
+
+                <div class="buttonWrap">
+                    <button id="cancel" type="button" class="button dark fw">
+                        CANCEL
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
