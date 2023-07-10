@@ -16,3 +16,4 @@ team4-application-webserver
 4) ChangePassword
 5) ChangeUserInfo
 6) ManageUser
+7) SearchUser
