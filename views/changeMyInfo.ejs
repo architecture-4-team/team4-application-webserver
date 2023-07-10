@@ -49,22 +49,122 @@
 
                     </span>
                 </p>
+                <dl>
+                    <dt class="">
+                        What's the name of the last book you read?
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="text" id="answer1" maxlength="30" placeholder="My Password Question 1 - Answer">
+                    </dd>
+                    <dt class="">
+                        What's your favorite color?
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="text" id="answer2" maxlength="30" placeholder="My Password Question 2 - Answer">
+                    </dd>
+                    <dt class="">
+                        What's your favorite travel destination?
+                    </dt>
+                    <dd class="inputBox">
+                        <input type="text" id="answer3" maxlength="30" placeholder="My Password Question 3 - Answer">
+                    </dd>
+                </dl>
                 <!-- buttonWrap -->
                 <div class="buttonWrap">
-                    <button id="change" type="button" class="button dark fw">
+                    <button id="changeBtn" type="button" class="button dark fw">
                         CHANGE My Info
                     </button>
                 </div>
-
-                <div class="buttonWrap">
-                    <button id="cancel" type="button" class="button dark fw">
-                        CANCEL
-                    </button>
-                </div>
-
             </div>
         </div>
     </div>
+
+    <script>
+        // TODO UUID 가져오는 방식으로 변경해야함
+        // var uuid = location.search.replace('?uuid:', '');
+        var uuid = "f8d556af-9955-40d9-955c-142cffd5b123";
+        getMyInfo();
+
+        $("#changeBtn").unbind().bind("click", function () {
+            var email = $("#email").val();
+            var nameFirst = $("#name_first").val();
+            var nameLast = $("#name_last").val();
+            var pwCurrent = hex_sha512($('#pw_new').val()).toString();
+            var pwNew = hex_sha512($('#pw_new').val()).toString();
+            var pwCheck = hex_sha512($('#pw_check').val()).toString();
+            var answer1 = $('#answer1').val();
+            var answer2 = $('#answer2').val();
+            var answer3 = $('#answer3').val();
+            if (email == '' || nameFirst == '' || nameLast == '' || pwNew == '' || pwCurrent == '' || pwCheck == '' || answer1 == '' || answer2 == '' || answer3 == '') {
+                alert("There are no values entered. Check again.");
+                return;
+            } else if (pwNew != pwCheck) {
+                alert("The New password and the Confirm password are different. Check again.");
+                return;
+            }
+
+            var data = {};
+            data.email = email;
+            data.pwd = pwNew;
+            data.firstname = nameFirst;
+            data.lastname = nameLast;
+            data.ip = location.hostname;
+            data.question1 = answer1;
+            data.question2 = answer2;
+            data.question3 = answer3;
+            data.contact_id = email;
+
+            $.ajax({
+                type: "PUT",
+                url: SERVER_IP + "api/user/" + uuid,
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                crossDomain: true,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", uuid);
+                    xhr.setRequestHeader("x-feature-type", reset);
+                },
+                error: function (data) {
+                    console.log('ajax fail.. :' + JSON.stringify(data));
+                    alert("Fail to join");
+                },
+                success: function (data) {
+                    console.log("ajax success.. : " + JSON.stringify(data));
+                    alert("Success to join");
+                }
+            });
+        });
+
+        function getMyInfo() {
+            $.ajax({
+                type: "GET",
+                url: SERVER_IP + "api/user" + uuid,
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                crossDomain: true,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", uuid);
+                },
+                error: function (data) {
+                    console.log('ajax fail.. :' + JSON.stringify(data));
+                    alert("Fail to get MyInfo");
+                },
+                success: function (data) {
+                    console.log("ajax success.. : " + JSON.stringify(data));
+
+                    $("#email").val(data.contents.email);
+                    $("#name_first").val(data.contents.firstname);
+                    $("#name_last").val(data.contents.lastname);
+                    $("#answer1").val(data.contents.answer1);
+                    $("#answer2").val(data.contents.answer2);
+                    $("#answer3").val(data.contents.answer3);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

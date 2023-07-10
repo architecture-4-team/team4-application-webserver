@@ -39,6 +39,11 @@
                         LOGIN
                     </button>
                 </div>
+                <div class="buttonWrap">
+                    <button id="joinBtn" type="button" class="button dark fw">
+                        JOIN
+                    </button>
+                </div>
 
                 <a id="forgotBtn" href="#">
                     Forgot your Password?
@@ -49,50 +54,48 @@
 
     <script>
         $("#loginBtn").unbind().bind("click", function () {
-            var email = $("#email").val()
-            var pw = $("#pw").val()
+            var email = $("#email").val();
+            var pw = hex_sha512($('#pw').val()).toString();
             if (email == '' || pw == '') {
                 alert("There are no values entered. Check again.");
-                // return;
+                return;
             }
-            var data = {};
-            data.username = "1234";
-            data.password = "5678";
 
-            // var dataDump = 'username=1234&password=5678';
-            // $.ajax({
-            //     type: "POST",
-            //     url: "http://192.168.2.8:8000/api/login",
-            //     data: data,
-            //     contentType: "application/json; charset=utf-8",
-            //     error: function () {
-            //         console.log('통신실패!!');
-            //     },
-            //     success: function (data) {
-            //         console.log("통신데이터 값 : " + data);
-            //     }
-            // });
+            var data = {};
+            data.username = email;
+            data.password = pw;
 
             $.ajax({
                 type: "POST",
-                url: "http://192.168.2.4:8000/api/login",
-                data: data,
+                url: SERVER_IP + "api/login",
+                data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 crossDomain: true,
                 dataType: "json",
                 error: function (data) {
-                    console.log('통신실패.. :' + data);
+                    console.log('ajax fail.. :' + JSON.stringify(data));
                 },
                 success: function (data) {
-                    console.log("통신데이터 값 : " + data);
+                    console.log("ajax success.. : " + JSON.stringify(data));
+                    var jsonObj = {
+                        action: "login_complete",
+                        email: email,
+                        uuid: data.contents.response
+                    }
+                    console.log(jsonObj)
+                    window.chrome.webview.postMessage(JSON.stringify(jsonObj))
                 }
             });
         });
 
-        function loginResponse(){
-            console.log("loginResponse")
-        }
+        $("#joinBtn").unbind().bind("click", function () {
+            location.replace("http://" + location.hostname + ":3000/join");
+        });
+
+        $("#forgotBtn").unbind().bind("click", function () {
+            location.replace("http://" + location.hostname + ":3000/resetPassword");
+        });
 
     </script>
 </body>

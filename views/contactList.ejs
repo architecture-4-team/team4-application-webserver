@@ -3,7 +3,7 @@
 
 <head>
     <% include ./layout/header.ejs %>
-        <script type="text/javascript" src="/js/manageUser.js"></script>
+        <script type="text/javascript" src="/js/contactList.js"></script>
 </head>
 
 <body>
@@ -14,15 +14,15 @@
                     <span id="dashboardDate"></span>
                 </div>
                 <div class="tools">
-                    <button id="refresh" type="button" class="button mini dark">
+                    <!-- <button id="refresh" type="button" class="button mini dark">
                         Refesh
-                    </button>
+                    </button> -->
                 </div>
             </div>
             <div class="dashboardBody">
                 <!-- columnWrap -->
                 <div class="columnWrap">
-                    <div class="column">
+                    <div class="column favoriteUserDiv">
                         <!-- columnHeader -->
                         <div class="columnHeader">
                             <div class="title">
@@ -41,7 +41,7 @@
                                     </table>
                                 </div>
                                 <div class="tools">
-                                    <button id="makeACall" type="button" class="button mini dark" style="width:200px; float: right; margin-top: 5px;">
+                                    <button id="makeACallBtn" type="button" class="button mini dark" style="width:200px; float: right; margin-top: 5px;">
                                         make a call
                                     </button>
                                 </div>
@@ -49,21 +49,21 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="favoriteUserDiv">
                         <br>
                     </div>
 
-                    <div class="">
+                    <div class="favoriteUserDiv">
                         <!-- form -->
                         <dl>
                             <dd class="inputBox">
-                                <input type="text" id="searchIinfo" maxlength="30" placeholder="Enter the user information to search for">
+                                <input type="text" id="searchUserinfo" maxlength="30" placeholder="Enter the user information to search for">
                             </dd>
                         </dl>
                         <br />
                         <!-- buttonWrap -->
                         <div class="buttonWrap">
-                            <button id="searchUser" type="button" class="button dark mini fw"
+                            <button id="searchUserBtn" type="button" class="button dark mini fw"
                                 style="width:200px; float: right;">
                                 Search User
                             </button>
@@ -71,11 +71,60 @@
                         <br />
                     </div>
 
-                    <div>
+                    <div class="favoriteUserDiv">
+                        <br>
+                    </div>
+                    
+                    <div class="column searchUserDiv">
+                        <!-- columnHeader -->
+                        <div class="columnHeader">
+                            <div class="title">
+
+                            </div>
+                        </div>
+                        <!-- columnBody -->
+                        <div class="columnBody">
+                            <!-- tableWrap -->
+                            <div class="dashboardTable columnTable">
+                                <!-- tableBody -->
+                                <div id="searchUserListDiv" class="tableWrap tableBody noData" data-nodata="No searched User">
+                                    <table style="display:none;">
+                                        <tbody id="searchUserList">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="searchUserDiv">
                         <br>
                     </div>
 
-                    <div class="column">
+                    <div class="searchUserDiv">
+                        <!-- form -->
+                        <dl>
+                            <dd class="inputBox">
+                                <input type="text" id="nickname" maxlength="30" placeholder="Enter the user nickname (Option)">
+                            </dd>
+                        </dl>
+                        <br />
+                        <!-- buttonWrap -->
+                        <div class="buttonWrap">
+                            <button id="AddFavoriteUserBtn" type="button" class="button dark fw">
+                                Add as Favorite User
+                            </button>
+                            <div>
+                                <br>
+                            </div>
+                            <button id="cancelBtn" type="button" class="button dark fw">
+                                CANCEL
+                            </button>
+                        </div>
+                        <br />
+                    </div>
+                    
+                    <div class="column reservationUserDiv">
                         <!-- columnHeader -->
                         <div class="columnHeader">
                             <div class="title">

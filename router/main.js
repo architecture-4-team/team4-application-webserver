@@ -41,9 +41,9 @@ module.exports = function (app, fs) {
         })
     });
 
-    app.get('/manageUser', function (req, res) {
-        res.render('manageUser', {
-            title: "Manage User",
+    app.get('/contactList', function (req, res) {
+        res.render('contactList', {
+            title: "Contact List",
             length: 5
         })
     });
