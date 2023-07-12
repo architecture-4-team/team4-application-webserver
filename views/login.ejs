@@ -55,7 +55,7 @@
     <script>
         $("#loginBtn").unbind().bind("click", function () {
             var email = $("#email").val();
-            var pw = hex_sha512($('#pw').val()).toString();
+            var pw = $('#pw').val();
             if (email == '' || pw == '') {
                 alert("There are no values entered. Check again.");
                 return;
@@ -63,7 +63,7 @@
 
             var data = {};
             data.username = email;
-            data.password = pw;
+            data.password = hex_sha512(pw);
 
             $.ajax({
                 type: "POST",
@@ -75,16 +75,22 @@
                 dataType: "json",
                 error: function (data) {
                     console.log('ajax fail.. :' + JSON.stringify(data));
+                    alert("Fail to login");
                 },
                 success: function (data) {
                     console.log("ajax success.. : " + JSON.stringify(data));
-                    var jsonObj = {
-                        action: "login_complete",
-                        email: email,
-                        uuid: data.contents.response
+
+                    if (data.result != 'ok') {
+                        alert("Fail to login from server");
+                    } else {
+                        var jsonObj = {
+                            action: "login_complete",
+                            email: email,
+                            uuid: data.contents.response
+                        }
+                        console.log(jsonObj)
+                        window.chrome.webview.postMessage(JSON.stringify(jsonObj))
                     }
-                    console.log(jsonObj)
-                    window.chrome.webview.postMessage(JSON.stringify(jsonObj))
                 }
             });
         });

@@ -90,9 +90,9 @@
                 var email = $("#email").val();
                 var nameFirst = $("#name_first").val();
                 var nameLast = $("#name_last").val();
-                var pwCurrent = hex_sha512($('#pw_new').val()).toString();
-                var pwNew = hex_sha512($('#pw_new').val()).toString();
-                var pwCheck = hex_sha512($('#pw_check').val()).toString();
+                var pwCurrent = $('#pw_current').val();
+                var pwNew = $('#pw_new').val();
+                var pwCheck = $('#pw_check').val();
                 var answer1 = $('#answer1').val();
                 var answer2 = $('#answer2').val();
                 var answer3 = $('#answer3').val();
@@ -106,7 +106,8 @@
 
                 var data = {};
                 data.email = email;
-                data.pwd = pwNew;
+                data.pwd = hex_sha512(pwCurrent);
+                data.new_pwd = hex_sha512(pwNew);
                 data.firstname = nameFirst;
                 data.lastname = nameLast;
                 data.ip = location.hostname;
@@ -125,7 +126,6 @@
                     dataType: "json",
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("Authorization", uuid);
-                        xhr.setRequestHeader("x-feature-type", "reset");
                     },
                     error: function (data) {
                         console.log('ajax fail.. :' + JSON.stringify(data));
@@ -133,7 +133,12 @@
                     },
                     success: function (data) {
                         console.log("ajax success.. : " + JSON.stringify(data));
-                        alert("Success change my info");
+
+                        if (data.result != 'ok') {
+                            alert(data.contents.reason);
+                        } else {
+                            alert("Success change my info");
+                        }
                     }
                 });
             });

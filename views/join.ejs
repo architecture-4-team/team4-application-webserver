@@ -89,8 +89,8 @@
             var email = $("#email").val();
             var nameFirst = $("#name_first").val();
             var nameLast = $("#name_last").val();
-            var pwNew = hex_sha512($('#pw_new').val()).toString();
-            var pwCheck = hex_sha512($('#pw_check').val()).toString();
+            var pwNew = $('#pw_new').val();
+            var pwCheck = $('#pw_check').val();
             var answer1 = $('#answer1').val();
             var answer2 = $('#answer2').val();
             var answer3 = $('#answer3').val();
@@ -104,7 +104,7 @@
 
             var data = {};
             data.email = email;
-            data.pwd = pwNew;
+            data.pwd = hex_sha512(pwNew);
             data.firstname = nameFirst;
             data.lastname = nameLast;
             data.ip = location.hostname;
@@ -127,8 +127,13 @@
                 },
                 success: function (data) {
                     console.log("ajax success.. : " + JSON.stringify(data));
-                    alert("Success to join");
-                    location.replace("http://" + location.hostname + ":3000/login");
+
+                    if (data.result != 'ok') {
+                        alert("Fail to join from server");
+                    } else {
+                        alert("Success to join");
+                        location.replace("http://" + location.hostname + ":3000/login");
+                    }
                 }
             });
         });
@@ -136,7 +141,7 @@
         $("#cancelBtn").unbind().bind("click", function () {
             location.replace("http://" + location.hostname + ":3000/login");
         });
-        
+
     </script>
 </body>
 
