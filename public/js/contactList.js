@@ -194,7 +194,7 @@ function drawContactList(data) {
         var html = "";
         for (var i = 0; i < data.contents.length; i++) {
             html += '<tr> \
-                        <td><input type="checkbox" id="chk_' + i + '" name="checkbox" uuid="' + data.contents[i].favorite_uid.uuid + '" email="' + data.contents[i].favorite_uid.email + '"> \
+                        <td style="width:250px;"><input type="checkbox" id="chk_' + i + '" name="checkbox" uuid="' + data.contents[i].favorite_uid.uuid + '" email="' + data.contents[i].favorite_uid.email + '"> \
                         <label for="chk_' + i + '">' + data.contents[i].nickname + '</td> \
                         <td><button type="button" class="button dark mini fw delFavoriteUser" style="width:50px; float: right;" uuid="' + data.contents[i].favorite_uid.uuid + '" >DEL</button></td> \
                     </tr>';
@@ -309,9 +309,9 @@ function drawReservationList(data) {
                 active = true;
 
             console.log(active)
-            
+
             html += '<tr> \
-                        <td>' + "[ Reservation ID : " + data.contents[i].room_id + " ] " + time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + '</td> \
+                        <td style="width:250px;">' + "[ Reservation ID : " + data.contents[i].room_id + " ] " + time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + '</td> \
                         <td><button type="button" class="button dark mini fw joinMeeting" style="width:50px; float: right;" roomid=" ' + data.contents[i].room_id + '">JOIN</button></td> \
                     </tr>';
         }
