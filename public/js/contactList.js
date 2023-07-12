@@ -1,16 +1,20 @@
-// TODO UUID 가져오는 방식으로 변경해야함
-// var uuid = location.search.replace('?uuid:', '');
-var uuid = "f8d556af-9955-40d9-955c-142cffd5b123";
+var uuid = location.search.replace('?uuid=', '');
+// var uuid = "f8d556af-9955-40d9-955c-142cffd5b123";
 
 $(document).ready(function () {
     initUI();
-    getFavoriteUserList();
-    getReservationList();
 });
 
 function initUI() {
+    if (uuid == '') {
+        alert("Check the UUID.");
+        return;
+    }
+
     $("#favoriteUserListDiv").addClass('noData');
     $("#favoriteUserListDiv > table").attr('display', true);
+    $("#reservationListDiv").addClass('noData');
+    $("#reservationListDiv > table").attr('display', true);
 
     $("#searchUserinfo").val('');
     $("#favoriteUserListDiv > table > tbody").text('');
@@ -19,6 +23,9 @@ function initUI() {
     $(".favoriteUserDiv").show();
     $(".reservationUserDiv").show();
     $(".searchUserDiv").hide();
+
+    getFavoriteUserList();
+    getReservationList();
 }
 
 function getFavoriteUserList() {
@@ -128,6 +135,28 @@ function getFavoriteUserList() {
             email: userEmail,
             uuid: userUUID
         }
+
+        // TODO
+        // var jsonObj = {
+        //     action: "call",
+        //     receivers : [{
+        //         email: userEmail,
+        //         uuid: userUUID
+        //     },
+        //     {
+        //         email: userEmail,
+        //         uuid: userUUID
+        //     },
+        //     {
+        //         email: userEmail,
+        //         uuid: userUUID
+        //     },
+        //     {
+        //         email: userEmail,
+        //         uuid: userUUID
+        //     }]
+        // }
+
         console.log(jsonObj)
         window.chrome.webview.postMessage(JSON.stringify(jsonObj));
     });
@@ -138,15 +167,16 @@ function getFavoriteUserList() {
 }
 
 function drawContactList(data) {
-    if (data.contents.length == 0) {
+    if (data.contents.length == undefined) {
         $("#favoriteUserListDiv").addClass('noData');
         $("#favoriteUserListDiv > table").attr('display', true);
         return;
     } else {
+        $("#favoriteUserListDiv > table > tbody").text('');
         var html = "";
         for (var i = 0; i < data.contents.length; i++) {
             html += '<tr> \
-                        <td><input type="checkbox" id="chk_' + i + '" name="checkbox" uuid="' + data.contents[i].favorite_uid.uuid + '" email="' + data.contents[i].favorite_uid.email + '"> \
+                        <td style="width:150px;"><input type="checkbox" id="chk_' + i + '" name="checkbox" uuid="' + data.contents[i].favorite_uid.uuid + '" email="' + data.contents[i].favorite_uid.email + '"> \
                         <label for="chk_' + i + '">' + data.contents[i].nickname + '</td> \
                         <td><button type="button" class="button dark mini fw delFavoriteUser" style="width:50px;" uuid="' + data.contents[i].favorite_uid.uuid + '" >DEL</button></td> \
                     </tr>';
@@ -191,11 +221,13 @@ function getSearchUser(data) {
         alert("No searched User.");
         return;
     } else {
+        $("#searchUserListDiv > table > tbody").text('');
+
         // TODO 내 검색 미포함 처리하기
         var html = "";
         for (var i = 0; i < data.contents.length; i++) {
             html += '<tr> \
-                    <td><input type="radio" id="chk_' + i + '" name="radio" uuid="' + data.contents[i].uuid + '"> \
+                    <td><input type="radio" id="chk_' + i + '" name="radio" uuid="' + data.contents[i].uuid + '" email="' + data.contents[i].email + '" > \
                     <label for="chk_' + i + '">' + data.contents[i].email + ", " + data.contents[i].firstname + " " + data.contents[i].lastname + '</td> \
                 </tr>';
         }
@@ -214,7 +246,7 @@ function getReservationList() {
     var html = "";
     for (var i = 0; i < 4; i++) {
         html += '<tr> \
-                    <td style="width:200px;" >Daily Meeting ( 23.07.1' + i + ' 09:30 AM )</td> \
+                    <td style="width:100px;" >Reservation Meeting ( 23.07.1' + i + ' 09:30 AM )</td> \
                     <td><button type="button" class="button dark mini fw" style="width:50px;" >JOIN</button></td> \
                 </tr>';
     }
